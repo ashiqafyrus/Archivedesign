@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Bootstrap CSS -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+     <!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Reset CSS */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Fonts */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Global Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            padding-top: 50px;
+        }
+
+        /* Basic styling for the vertical navbar */
+        .navbar {
+            height: 100vh;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: -200px; /* Initially hidden */
+            background-color: #333; /* Dark background */
+            padding-top: 20px;
+            transition: left 0.3s; /* Smooth transition */
+            z-index: 1000; /* Ensure it's above other elements */
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .navbar li {
+            margin-bottom: 10px;
+        }
+
+        .navbar a {
+            display: block;
+            padding: 10px;
+            color: #fff; /* White text */
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555; /* Darker color on hover */
+        }
+
+        /* Basic styling for the horizontal navbar */
+    .horizontal-navbar {
+        background-color: #333; /* Dark background */
+        padding: 10px 20px;
+        overflow: hidden;
+        position: fixed;
+        top: 0px;
+        left: 50px; /* Adjusted to match the width of the vertical navbar */
+        width: 100%; /* Adjusted to fill the remaining width */
+        z-index: 1100; /* Ensure it's above the vertical navbar */
+        transition: top 0.3s; /* Smooth transition */
+    }
+
+    .horizontal-navbar a {
+        float: left;
+        display: block;
+        color: #fff; /* White text */
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+
+    .horizontal-navbar a:hover {
+        background-color: #555; /* Darker color on hover */
+    }
+
+        /* Toggle buttons */
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            cursor: pointer;
+            color: #fff; /* White text */
+            z-index: 1001; /* Ensure it's above other elements */
+            background-color: #333; /* Dark background */
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .toggle-horizontal-navbar {
+            display: none; /* Initially hidden */
+            right: 20px;
+        }
+
+        /* Content area */
+        .content {
+            margin-top: 70px; /* Space for both navbars */
+            background-color: #f9f9f9; /* Light background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        /* Media Query for smaller screens */
+        @media (max-width: 768px) {
+            .navbar {
+                width: 30%; /* Full width */
+                left: -100%; /* Initially hidden */
+            }
+
+            .horizontal-navbar {
+                top: 0px; /* Adjusted top position */
+                width: 100%; /* Full width */
+            }
+
+            .toggle-horizontal-navbar {
+                display: block; /* Show toggle button */
+            }
+
+            /* Adjust content margin for smaller screens */
+            .content {
+                margin-top: 80px; /* Adjusted top margin */
+            }
+        }
+        /* Custom styling for the card */
+.card {
+    border: none; /* Remove default border */
+    border-radius: 15px; /* Add border-radius for rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    transition: transform 0.3s; /* Add smooth transition for hover effect */
+    width: 200px; 
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Apply translateY transform on hover */
+}
+
+/* Custom styling for the card body */
+.card-body {
+    padding: 20px; /* Add padding for content inside the card */
+}
+
+/* Custom styling for card title */
+.card-title {
+    font-size: 1.2rem; /* Increase font size for title */
+    margin-bottom: 10px; /* Add margin at the bottom of title */
+}
+
+/* Custom styling for card text */
+.card-text {
+    color: #555; /* Change text color */
+}
+
+/* Custom styling for card button */
+.btn-custom {
+    background-color: #333; /* Change button background color */
+    color: #fff; /* Change button text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    transition: background-color 0.3s; /* Add smooth transition for hover effect */
+}
+
+.btn-custom:hover {
+    background-color: #555; /* Darker color on hover */
+}
+/* Media Query for smaller screens */
+@media (max-width: 576px) {
+    .card {
+        width: 100%; /* Set width to 100% for smaller screens */
+        max-width: 300px; /* Set maximum width if needed */
+    }
+    .col-sm-4 {
+        margin-bottom: 10px; /* Reduce margin for smaller screens */
+    }
+}
+.col-sm-4 {
+    margin-bottom: 20px; /* Add margin between rows */
+}
+.service-container {
+    text-align: center;
+    margin-top: 40px;
+    padding: 40px; /* Increased padding for better spacing */
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 20px; /* Increased border radius for a softer look */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    position: relative; /* Position relative for absolute positioning */
+}
+
+.service-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #333, #555); /* Gradient overlay */
+    opacity: 0.8; /* Adjust the opacity to your preference */
+    border-radius: 20px; /* Match the border radius of the container */
+}
+
+.service-container h2 {
+    color: #fff; /* White text color */
+    font-size: 2.5rem; /* Larger font size */
+    margin-bottom: 20px; /* Add space below heading */
+    position: relative; /* Position relative for z-index */
+    z-index: 1; /* Ensure the text stays above the overlay */
+}
+
+.service-container p {
+    color: #fff; /* White text color */
+    font-size: 1.2rem; /* Moderate font size */
+    line-height: 1.6; /* Improved readability with increased line height */
+    position: relative; /* Position relative for z-index */
+    z-index: 1; /* Ensure the text stays above the overlay */
+}
+
+.card-container{
+    padding-top: 30px;
+}
+
+    .delete-icon {
+        display: none; /* Initially hidden */
+    }
+
+
+    </style>
+</head>
+<body>
+   <!-- Toggle button for vertical navbar -->
+   <div class="toggle-button" onclick="toggleNavbar()">
+    &#9776; <!-- Hamburger icon -->
+</div>
+
+<!-- Toggle button for horizontal navbar (responsive) -->
+<div class="toggle-button toggle-horizontal-navbar" onclick="toggleHorizontalNavbar()">
+    &#9776; <!-- Hamburger icon -->
+</div>
+
+    <!-- Vertical Navbar -->
+    <nav class="navbar" id="vertical-navbar">
+        <ul><li><a></a></li>
+            <li><a href="{% url 'crmarchive' %}">Archive</a></li>
+            <li><a href="#">Products</a></li>
+            <li><a href="#">Sales</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Horizontal Navbar -->
+    <nav class="horizontal-navbar">
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'crmcontent' %}">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+{% load static %}
+    <div class="container content">
+        <div class="row mt-3" id="card-container">
+            {% for app in product %}
+            {% if app.id not in archived_app_ids %}
+            <div class="col-sm-2 mb-3">
+                <div class="card"  draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)" data-app-id="{{ app.id }}" style="border-radius:15px 50px 30px;border-color: black; background-color: rgb(137, 15, 15);">
+                    <div class="card1" >
+                        
+                       
+                        <div class="delete-icon" style="display: none;">
+                        
+                            <a href="{% url 'archive_app' app.id  %}" class="delete-link" data-app-id="{{ app.id }}"><img src="{% static 'images/crmdelete.jpg' %}" class="img-fluid" width="56" ></a>
+                        </div>
+                      </div>
+                    <div class="card-body" >
+                     
+                        <h1 class="card-title text-warning" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ app.name }}</h1>
+                        <hr style="border-color: rgb(167, 127, 7); ">
+                        <p class="card-text text-danger"><b style="font-size: 2rem;" class="text-warning">{{ app.price }}</b></p>
+                    </div>
+                </div>
+            </div>
+           
+           
+            {% endif %}
+            {% endfor %}
+            {% for app in product %}
+            {% if app.id not in archived_app_ids %}
+            <div class="col-sm-2 mb-3">
+                <div class="card"  draggable="true" ondragstart="drag(event)" ondragend="dragEnd(event)" data-app-id="{{ app.id }}" style="border-radius:15px 50px 30px;border-color: black;background-color: rgb(137, 15, 15);">
+                    <div class="card1" >
+                        
+                        <div class="delete-icon" style="display: none; ">
+                         
+                            <a href="{% url 'archive_app' app.id  %}" class="delete-link" data-app-id="{{ app.id }}"><img src="{% static 'images/crmdelete.jpg' %}" class="img-fluid" width="56" ></a>
+                        </div>
+                      </div>
+                    <div class="card-body" >
+                     
+                        <h1 class="card-title text-warning" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ app.name }}</h1>
+                        <hr style="border-color: rgb(167, 127, 7); ">
+                        <p class="card-text text-danger"><b style="font-size: 2rem;" class="text-warning">{{ app.price }}</b></p>
+                    </div>
+                </div>
+            </div>
+           
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="service-container">
+            <h2>Digital Marketing</h2>
+            {% load static %}
+            <img src="{% static 'images/digi.avif' %}" alt="Digital Marketing" class="service-image">
+            <p>Also called online marketing, is the promotion of brands to connect with potential customers using the internet and other forms of digital communication. It encompasses all marketing efforts that use electronic devices or the internet. It involves promoting products or services through various digital channels to reach a target audience, engage them, and drive desired actions.</p>
+        </div>
+    </div>
+    <footer class="bg-light text-black ">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About Us</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed gravida turpis nec est finibus, a
+                        elementum ex malesuada.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Info</h5>
+                    <p>123, Street Name, City<br>Country</p>
+                    <p>Email: info@example.com<br>Phone: +1234567890</p>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+    </footer>
+
+       <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script to toggle vertical navbar -->
+    <script>
+        function toggleNavbar() {
+            var navbar = document.getElementById("vertical-navbar");
+            if (navbar.style.left === "0px") {
+                navbar.style.left = "-200px"; // Hide the navbar
+            } else {
+                navbar.style.left = "0px"; // Show the navbar
+            }
+        }
+    </script>
+
+    <!-- Script to toggle horizontal navbar (responsive) -->
+    <script>
+        function toggleHorizontalNavbar() {
+            var navbar = document.querySelector(".horizontal-navbar");
+            if (navbar.style.top === "0px") {
+                navbar.style.top = "-50px"; // Hide the navbar
+            } else {
+                navbar.style.top = "0px"; // Show the navbar
+            }
+        }
+    </script>
+ <script>
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.dataset.appId);
+        // Show delete icon when dragging starts
+        event.target.querySelector('.delete-icon').style.display = 'block';
+    }
+
+    function dragEnd(event) {
+        // Hide delete icon when dragging ends
+        event.target.querySelector('.delete-icon').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.addEventListener('dragstart', drag);
+        card.addEventListener('dragend', dragEnd);
+    });
+
+    const deleteIcons = document.querySelectorAll('.delete-icon');
+
+    deleteIcons.forEach(icon => {
+        icon.addEventListener('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        icon.addEventListener('drop', function (event) {
+            event.preventDefault();
+            const cardId = event.dataTransfer.getData("text"); // Get the ID of the dragged card
+            const appId = this.querySelector('.delete-link').getAttribute('data-app-id'); // Get the ID of the delete icon's associated card
+            if (cardId === appId) {
+                const url = this.querySelector('.delete-link').getAttribute('href').replace('app_id', cardId);
+                // Navigate to the URL to archive the card
+                window.location.href = url;
+            }
+        });
+    });
+});
+
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('dragstart', drag);
+            card.addEventListener('dragend', dragEnd);
+        });
+    
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,306 @@
+{% extends "navbar.html" %}
+{% block content %}
+{% load static %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="display-4" style="font-weight: bold;">Empower Your Sales Teams with Odoo CRM</h1>
+            <p class="lead">Experience the power of customer-centric sales management with Odoo CRM. Revolutionize your sales process, track leads effectively, and focus on closing opportunities with confidence.</p>
+            <div class="mt-4">
+                <button class="my-button" style="margin-right: 10px;">Start Now</button>
+                <button class="mbutton"><a href="{% url 'drag' %}" style="text-decoration: none; color: white;">Schedule a Demo</a></button>
+            </div>
+        </div>
+        <div class="col-md-6 mt-4 mt-md-0 text-center">
+            <p id="see-why" class="innovative-text" onclick="toggleMessage()">Experience Unlimited Possibilities for Free</p>
+            <p id="message" style="display: none;">Discover why Odoo CRM offers free, unlimited access for life. We believe in empowering businesses of all sizes to achieve greatness without financial constraints.</p>
+            
+            <img id="dr" src="{% static 'images/isometric-web.avif' %}"  class="img-fluid" />
+         
+        </div>
+    </div>
+   
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <input type="hidden" name="image_id" id="imageIdInput" value="">
+            <div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Transformative Image 1</h3>
+                    <div>
+                        <form method="POST" enctype="multipart/form-data" id="imageForm" action="save_image">
+                            {% csrf_token %}
+                            <input type="hidden" name="image_id" value="dragImg1">
+                            <div class="image-container">
+                                <img id="dragImg1" src="{% static 'images/crm1.jpeg' %}" draggable="true" ondragstart="drag(event)" style="width: 150px; height: 150px;" data-text="Unlocking Sales Potential" />
+                                
+                                   
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Innovative Image 2</h3>
+                    <div>
+                        <form method="POST" enctype="multipart/form-data" id="imageForm" action="save_image">
+                            {% csrf_token %}
+                            <input type="hidden" name="image_id" value="dragImg2">
+                            <div class="image-container">
+                                <img id="dragImg2" src="{% static 'images/crm2.jpeg' %}" draggable="true" ondragstart="drag(event)" style="width: 150px; height: 150px;" data-text="Revolutionizing Sales Strategies" />
+                              
+                            </div>
+                        </form>  
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Groundbreaking Image 3</h3>
+                    <div>
+                        <form method="POST" enctype="multipart/form-data" id="imageForm" action="save_image">
+                            {% csrf_token %}
+                            <input type="hidden" name="image_id" value="dragImg3">
+                            <div class="image-container">
+                                <img id="dragImg3" src="{% static 'images/crm3.jpeg' %}" draggable="true" ondragstart="drag(event)" style="width: 150px; height: 150px;" data-text="Innovative Sales Solutions" />
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="container" class="mb-4">
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class="card" id="card1" ondrop="drop(event)" ondragover="allowDrop(event)" style="text-align: center;">Drop Here to Explore Your Potential</div>
+            </div>
+        </div>   
+    </div>
+</div>
+<style>
+    .innovative-text {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        background-image: linear-gradient(to right, #ff9a00, #ff8f00, #ff8400, #ff7800, #ff6b00);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbow 5s linear infinite;
+    }
+    
+    .container1 {
+        background-color: #dbe6f1; /* Light gray background */
+        padding: 30px; /* Add padding for spacing */
+        margin-bottom: 50px; /* Ensure space between container and footer */
+    }
+    .card {
+        width: 100%; /* Adjusted width to fill the column */
+        height: 300px; /* Adjusted height to ensure consistency */
+        background-color: #f0f0f0; /* Light gray background */
+        border: 1px solid #ccc; /* Light gray border */
+        margin: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden; /* Hide overflow content */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+        transition: all 0.3s ease; /* Smooth transition effect */
+    }
+
+    .card:hover {
+        transform: scale(1.05); /* Scale up on hover */
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+
+    .card img {
+        display: block;
+        margin-bottom: 10px;
+        width: 80%;
+        height: auto;
+        max-height: 70%; /* Ensure the image doesn't exceed 70% of the card height */
+        object-fit: cover; /* Maintain aspect ratio and cover the space */
+        border-radius: 10px; /* Rounded corners for the image */
+    }
+    /* Hover effect for the clickable text */
+    #see-why:hover {
+        color: #5d00ff;
+    }
+
+    /* Rainbow animation keyframes */
+    @keyframes rainbow {
+        0% { background-position: 0 0; }
+        100% { background-position: 100% 0; }
+    }
+
+    /* Styling for the buttons */
+    .my-button, .mbutton {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 0;
+        cursor: pointer;
+        border-radius: 10px;
+        transition: background-color 0.3s ease; /* Smooth transition for background color */
+    }
+    body {
+        background-color: #f8f9fa;
+    }
+    .container1 {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+    .my-button:hover, .mbutton:hover {
+        background-color: #45a049; /* Darker shade on hover */
+    }
+    .archive-button {
+    display: none;
+    position: absolute;
+    top: 5px; /* Adjust the top position as needed */
+    right: 5px; /* Adjust the right position as needed */
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 50%; /* Make it round */
+    width: 50px; /* Set width */
+    height: 50px; /* Set height */
+}
+
+.image-container:hover .archive-button {
+    display: block;
+}
+
+.archive-button img {
+    width: 100%; /* Make sure the icon fills the button */
+    height: auto;
+}
+
+</style>
+<script>
+    // Initialize progress bar width to 0
+    var progressBar = document.querySelector('.progress-bar');
+    progressBar.style.width = '0%';
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        // Clone the entire card element and set it as drag data
+        var cardClone = ev.target.cloneNode(true);
+        ev.dataTransfer.setDragImage(cardClone, 0, 0); // Set the drag image to the cloned card
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    var draggedImage = document.getElementById(data);
+    var cardId = ev.target.id;
+    var card = document.getElementById(cardId);
+
+    // Clone the dragged image and append it to the drop target
+    var draggedImageClone = draggedImage.cloneNode(true);
+    card.appendChild(draggedImageClone);
+
+    // Update the progress bar value
+    var imagesInCard = card.querySelectorAll('img').length; // Get the number of images in the card
+    var totalImages = 3; // Assuming there are 3 images in total
+    var progressValue = (imagesInCard / totalImages) * 100;
+    progressBar.style.width = progressValue + '%';
+    progressBar.textContent = progressValue + '%'; // Update the text content of the progress bar
+
+    // Call the archiveImage function with the image ID
+    var imageId = draggedImage.getAttribute('id');
+    archiveImage(imageId);
+
+    // Save the dragged image to the database
+    saveImageToDatabase(draggedImage.src); // Pass the image source URL as imageData
+
+    // Remove the dragged image from its original container
+    draggedImage.parentNode.removeChild(draggedImage);
+}
+
+// Modified archiveImage function to accept imageId parameter
+function archiveImage(imageId) {
+    // Assuming imageId is passed as an argument to the function
+    fetch('/archive-image/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // Include any necessary authentication headers if required
+        },
+        body: JSON.stringify({ imageId: imageId }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Provide feedback to the user indicating successful archiving
+            console.log('Image archived successfully.');
+        } else {
+            // Handle error cases
+            console.error('Failed to archive image.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Modified archive button click event handler
+document.querySelectorAll('.archive-button').forEach(button => {
+    button.addEventListener('click', function() {
+        var imageId = this.parentElement.querySelector('img').getAttribute('id');
+        archiveImage(imageId);
+    });
+});
+// JavaScript function to send image data to the backend
+function saveImageToDatabase(imageData) {
+    fetch('/save-image/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'), // Include the CSRF token in the request headers
+        },
+        body: JSON.stringify({ image_data: imageData }), // Send the image data as a JSON object
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Image saved successfully');
+        } else {
+            console.error('Failed to save image');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+// Function to retrieve CSRF token from cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+</script>
+{% endblock %}
